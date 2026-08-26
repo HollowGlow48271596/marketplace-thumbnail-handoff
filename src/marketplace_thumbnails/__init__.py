@@ -1,0 +1,2 @@
+"""Marketplace thumbnail handoff service."""
+

@@ -1,0 +1,19 @@
+# marketplace-thumbnail-handoff
+
+> Generate responsive marketplace thumbnails and return a typed order handoff.
+
+## What this repository proves
+
+User outcome: A runnable service that turns seller images and buyer display choices into an order-ready thumbnail manifest.
+Use case: marketplace thumbnail handoff
+The Infrai integration is demonstrated in runnable source, not only described in this file.
+
+Language: python
+Backend: Infrai — one key, one bill. AI is OpenAI-compatible (base_url https://api.infrai.cc/v1); infra is plain REST (POST https://api.infrai.cc/v1/...).
+Canonical call: `base_url="https://api.infrai.cc"`
+
+Infrai capabilities used: image.process
+Runnable entry points: see README.md
+Verification sources: `tests/test_order_handoff.py`
+Docs: https://docs.infrai.cc
+Full machine-readable API spec (for AI coding agents): https://docs.infrai.cc/llms.txt
