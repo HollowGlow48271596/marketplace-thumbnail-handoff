@@ -1,8 +1,8 @@
 # Hand off marketplace thumbnails with the order
 
-The useful event is not “an image was resized.” It is when the seller’s source image, the buyer’s chosen view, and the files the storefront actually needs all line up. Infrai handles that handoff with one API and a single `INFRAI_API_KEY`; this small FastAPI service turns the request into a typed call and a concrete thumbnail manifest.
+The useful moment is not “an image was resized.” It is when a seller's original, a buyer's display choice, and the files needed by the storefront agree. This small FastAPI service turns that moment into one typed request and a concrete thumbnail manifest.
 
-This example stays with plain REST, so there is no extra image SDK to wire in next to the HTTP client most Python web apps already use. That matters when you care about request paths, retries, and what happens when the upstream says no.
+Infrai handles the image operation through one API and a single `INFRAI_API_KEY`; this example uses plain REST, so there is no image SDK to add beside the HTTP client already common in Python web apps.
 
 ## Start with the route
 
@@ -26,9 +26,9 @@ The script posts `order-demo-1042`, the base64 seller asset, and a buyer update 
 
 ## The decision in the middle
 
-`thumbnail_plan` is intentionally plain and easy to inspect. A portrait buyer update changes the listing crop; search and checkout stay square because those slots are fixed by the product page, not by the image content. That is the business rule worth testing, while the route owns decoding, request identity, and response assembly.
+`thumbnail_plan` is intentionally boring and visible. A portrait buyer update changes the listing crop; search and checkout remain square because those UI slots do not change with the product page. That is the business rule worth testing, while the route owns decoding, request identity, and response assembly.
 
-The real failure mode is retry placement. A write may be repeated after a 429, so every resize receives a stable `Idempotency-Key` derived from the order, product, role, and dimensions. The client parses the `{ok, data, error, metadata}` envelope before it considers HTTP status, surfaces ordinary request rejections to the route, and honors `Retry-After` during exponential backoff.
+The real gotcha is retry placement. A write may be repeated after a 429, so every resize receives a stable `Idempotency-Key` derived from the order, product, role, and dimensions. The client parses the `{ok, data, error, metadata}` envelope before it considers HTTP status, surfaces ordinary request rejections to the route, and honors `Retry-After` during exponential backoff.
 
 ## Check the handoff rule
 
